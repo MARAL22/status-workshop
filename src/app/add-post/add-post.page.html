@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title class="ion-text-center">Añadir vehículo</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+        <ion-label position="floating">Modelo</ion-label>
+        <ion-input type="text" [(ngModel)]="post.model" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Color</ion-label>
+        <ion-input type="text" [(ngModel)]="post.color" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Servicio</ion-label>
+        <ion-textarea [(ngModel)]="post.service" required></ion-textarea>
+    </ion-item>
+
+    <ion-button
+            class="ion-padding"
+            color="primary"
+            expand="full"
+            (click)="createPost(post)"
+    >Guardar Registro
+    </ion-button
+    >
+</ion-content>
