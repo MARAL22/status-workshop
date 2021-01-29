@@ -66,8 +66,7 @@ export class AddPostPage implements OnInit {
 
         if (!this.post.service) {
 
-            this.showToast("Ingresa Servicio" +
-                "");
+            this.showToast("Ingresa Servicio");
             return false;
         }
 

@@ -6,19 +6,36 @@
 
 <ion-content>
     <ion-item>
+        <ion-label position="floating">Cliente</ion-label>
+        <ion-input type="text" [(ngModel)]="post.client" required></ion-input>
+    </ion-item>
+
+    <ion-item>
         <ion-label position="floating">Modelo</ion-label>
         <ion-input type="text" [(ngModel)]="post.model" required></ion-input>
     </ion-item>
 
     <ion-item>
-        <ion-label position="floating">Details</ion-label>
+        <ion-label position="floating">Color</ion-label>
         <ion-textarea [(ngModel)]="post.color" required></ion-textarea>
     </ion-item>
 
     <ion-item>
-        <ion-label position="floating">Details</ion-label>
+        <ion-label position="floating">Servicio</ion-label>
         <ion-textarea [(ngModel)]="post.service" required></ion-textarea>
     </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">URL Imagen</ion-label>
+        <ion-textarea [(ngModel)]="post.url" required></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Detalles</ion-label>
+        <ion-textarea [(ngModel)]="post.details" required></ion-textarea>
+    </ion-item>
+
+
 
     <ion-button
             class="ion-padding"

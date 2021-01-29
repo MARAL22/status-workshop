@@ -1,11 +1,13 @@
-import {Component} from "@angular/core";
-import {AngularFirestore} from "@angular/fire/firestore";
-import {ToastController, LoadingController, Platform} from "@ionic/angular";
+import {Component} from '@angular/core';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {ToastController, LoadingController, Platform} from '@ionic/angular';
+import { Post } from '../models/post.model';
+import {Router, NavigationExtras} from '@angular/router';
 
 @Component({
-    selector: "app-home",
-    templateUrl: "home.page.html",
-    styleUrls: ["home.page.scss"]
+    selector: 'app-home',
+    templateUrl: 'home.page.html',
+    styleUrls: ['home.page.scss']
 })
 export class HomePage {
     posts: any;
@@ -15,7 +17,8 @@ export class HomePage {
         private toastCtrl: ToastController,
         private firestore: AngularFirestore,
         private loadingCtrl: LoadingController,
-        private platform: Platform
+        private platform: Platform,
+        private router: Router
     ) {
     }
 
@@ -31,22 +34,26 @@ export class HomePage {
 
     async getPosts() {
 
-        let loader = await this.loadingCtrl.create({
-            message: "Please wait..."
+        const loader = await this.loadingCtrl.create({
+            message: 'Please wait...'
         });
-        loader.present();
+        await loader.present();
 
         try {
             this.firestore
-                .collection("posts")
+                .collection('posts')
                 .snapshotChanges()
                 .subscribe(data => {
                     this.posts = data.map(e => {
                         return {
                             id: e.payload.doc.id,
+                            client: e.payload.doc.data()["client"],
                             model: e.payload.doc.data()["model"],
                             color: e.payload.doc.data()["color"],
-                            service: e.payload.doc.data()["service"]
+                            service: e.payload.doc.data()["service"],
+                            url: e.payload.doc.data()["url"],
+                            details: e.payload.doc.data()["details"]
+
                         };
                     });
                     loader.dismiss();
@@ -58,18 +65,27 @@ export class HomePage {
 
     async deletePost(id: string) {
 
-        let loader = await this.loadingCtrl.create({
-            message: "Espere un momento"
+        const loader = await this.loadingCtrl.create({
+            message: 'Espere un momento'
         });
         loader.present();
 
-        await this.firestore.doc("posts/" + id).delete();
+        await this.firestore.doc('posts/' + id).delete();
 
         loader.dismiss();
     }
 
     ionViewWillEnter() {
         this.getPosts();
+    }
+
+    detail(post: Post) {
+        const navext: NavigationExtras = {
+            queryParams: {
+                special: JSON.stringify(post)
+            }
+        };
+        this.router.navigate(['/details'], navext);
     }
 
     showToast(message: string) {

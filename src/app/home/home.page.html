@@ -13,11 +13,11 @@
 
   <ion-list lines="none">
     <ion-item-sliding *ngFor="let post of posts">
-      <ion-item class="no-padding">
+      <ion-item tappable (click)="detail(post)" class="no-padding">
         <ion-label>
-          <h2>{{ post.model }}</h2>
-          <p>{{ post.color }}</p>
-          <p>{{ post.service }}</p>
+          <h2>Modelo: {{ post.model }}</h2>
+          <p>Color: {{ post.color }}</p>
+          <p>Servicios: {{ post.service }}</p>
         </ion-label>
       </ion-item>
 

@@ -44,9 +44,12 @@ export class EditPostPage implements OnInit {
             .doc("posts/" + id)
             .valueChanges()
             .subscribe(data => {
+                this.post.client = data["client"];
                 this.post.model = data["model"];
                 this.post.color = data["color"];
                 this.post.service = data["service"];
+                this.post.url = data["url"];
+                this.post.details = data["details"];
 
                 // dismiss loader
                 loader.dismiss();
@@ -59,7 +62,7 @@ export class EditPostPage implements OnInit {
 
             // show loader
             let loader = await this.loadingCtrl.create({
-                message: "Please wait..."
+                message: "Espere..."
             });
             loader.present();
 
